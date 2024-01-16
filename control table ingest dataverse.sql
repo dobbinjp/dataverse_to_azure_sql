@@ -14,14 +14,15 @@ CREATE TABLE [etl].[ControlTable_Ingest_dataverse](
 	[TargetSchema] [varchar](50) NULL,
 	[TargetTable] [varchar](50) NULL,
 	[TargetKeyColumn] [varchar](50) NULL,
-	[PreCopyScript] [varchar](100) NULL,
+	[PreCopyScript] [varchar](200) NULL,
+	[PreCopyScript_Deletes] [varchar](200) NULL, --can drop the table to store deletes before the copy runs (leaves last run in the deletes table)
+	[DeleteStatement] [varchar](200) NULL, --delete statement to delete only records that have been deleted in the source
 	[IsActiveFlag] [bit] NULL,
 	[PipelineLastRunDateTimeUTC] [datetime2](7) NULL,
-	[LastRunStatus] [varchar](50) NULL
-) ON [PRIMARY]
-GO
-ALTER TABLE [etl].[ControlTable_Ingest_dataverse] ADD PRIMARY KEY CLUSTERED 
+	[LastRunStatus] [varchar](50) NULL,
+PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
-)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
 GO
